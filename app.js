@@ -130,6 +130,10 @@ app.get('/news', async (req, res) => {
     res.render("./content/news.ejs");
 });
 
+app.get('/about', async (req, res) => {
+    res.render("./content/about.ejs");
+});
+
 app.use("/user",userRouter);
 app.all('*',(req,res,next)=>{
     res.send("page not found");
