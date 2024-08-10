@@ -3,13 +3,13 @@
 <body>
 <div class="emergency row row-cols-1 row-cols-sm-1 row-cols-lg-2 my-2">
     
-    <div class="report col-12 col-md-6 col-lg-6 mb-1">
+    <div class="report col-12 col-md-6 col-lg-6 mb-1" id="report-disas">
         <div class="row">
             <div class="col-8 offset-2">
                 <h2> 
                    Report a Disaster
                 </h2>
-                <form action="/user/signup" method="post" novalidate class="needs-validation">
+                <form action="/sendSms" method="post" novalidate class="needs-validation">
                     <div class="mb-3">
                         <lable for="username" class="form-label">Name</lable>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -65,13 +65,13 @@
         
     </div>  
    
-    <div class="sos col-12 col-md-6 col-lg-6">
+    <div class="sos col-12 col-md-6 col-lg-6" id="sos-disas">
        <div class="row">
             <div class="col-8 offset-2">
                 <h2> 
                     Emergency Help
                 </h2>
-                <form action="/user/signup" method="post" novalidate class="needs-validation">
+                <form action="/sendSms" method="post" novalidate class="needs-validation">
                     <div class="mb-3">
                         <lable for="username" class="form-label">Name</lable>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -123,8 +123,7 @@
             </div>
         </div>
         
-        <script src="/js/form.js"></script>
-        
+       
     </div>
 </div>
 <div class="info-color w-100">
