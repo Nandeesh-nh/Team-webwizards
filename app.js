@@ -14,7 +14,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 
-
 const wrapAsync=require('./utils/wrapAsync.js');
 const ExpressError=require('./utils/ExpressError.js')
 
@@ -88,6 +87,35 @@ app.get("/",(req,res)=>{
 app.get("/index",(req,res)=>{
     res.render("./listings/info.ejs");
 })
+
+app.post('/sendSms', async (req, res) => {
+        const apiKey = process.env.SMS_API_KEY; // Replace with your Fast2SMS API key
+        const senderId = "7353589001";  // Replace with your sender ID
+        const phoneNumber = req.body.phone;
+        const message = "Thank you for reaching out for assistance. Your request has been successfully forwarded to the Natural Disaster Management team. They will review your inquiry and get in touch with you shortly";
+    
+        try {
+            const response = await axios.post('https://www.fast2sms.com/dev/bulk', null, {
+                headers: {
+                    'Authorization': apiKey,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                params: {
+                    'sender_id': senderId,
+                    'message': message,
+                    'language': 'english',
+                    'route': 'p',
+                    'numbers': phoneNumber,
+                }
+            });
+            req.flash("success","SMS sent successfully");
+            return res.redirect("/index");
+        } catch (error) {
+            req.flash("error",`${error.message}`)
+            return res.redirect("/index");
+        }
+    });
+
 
 
 app.get('/api/map', async (req, res) => {

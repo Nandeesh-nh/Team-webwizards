@@ -3,13 +3,13 @@
 <body>
 <div class="emergency row row-cols-1 row-cols-sm-1 row-cols-lg-2 my-2">
     
-    <div class="report col-12 col-md-6 col-lg-6 mb-1">
+    <div class="report col-12 col-md-6 col-lg-6 mb-1" id="report-disas">
         <div class="row">
             <div class="col-8 offset-2">
                 <h2> 
                    Report a Disaster
                 </h2>
-                <form action="/user/signup" method="post" novalidate class="needs-validation">
+                <form action="/sendSms" method="post" novalidate class="needs-validation">
                     <div class="mb-3">
                         <lable for="username" class="form-label">Name</lable>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -65,13 +65,13 @@
         
     </div>  
    
-    <div class="sos col-12 col-md-6 col-lg-6">
+    <div class="sos col-12 col-md-6 col-lg-6" id="sos-disas">
        <div class="row">
             <div class="col-8 offset-2">
                 <h2> 
                     Emergency Help
                 </h2>
-                <form action="/user/signup" method="post" novalidate class="needs-validation">
+                <form action="/sendSms" method="post" novalidate class="needs-validation">
                     <div class="mb-3">
                         <lable for="username" class="form-label">Name</lable>
                         <input type="text" name="name" id="name" class="form-control" required>
@@ -123,8 +123,7 @@
             </div>
         </div>
         
-        <script src="/js/form.js"></script>
-        
+       
     </div>
 </div>
 <div class="info-color w-100">
@@ -140,7 +139,7 @@
                             <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
                           </svg>
                     </div>
-                    <h5 class="card-title"> <a href="" class="under">Learn the Disasters</a></h5>
+                    <h5 id = "know-more" class="card-title"> <a href="" class="under">Learn the Disasters</a></h5>
                     <p class="card-text">Read case studies about how FEMA funds are being used by state, local, tribal and territorial governments to become more resilient to disasters.</p>
                 </div>
             </div>
