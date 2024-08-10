@@ -6,6 +6,7 @@
     background-color: white;
     display: inline-block;
 }
+
 .card-body h5 {
     color: #ffffff;
 }
@@ -37,4 +38,7 @@
 
 .sos {
     border-left : 1px solid black;
+}
+.navbar-collapse {
+    text-align: center;
 }
