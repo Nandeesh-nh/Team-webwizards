@@ -94,6 +94,14 @@ app.get('/api/map', async (req, res) => {
     res.render("./listings/map.ejs")
 });
 
+app.get('/learn', async (req, res) => {
+    res.render("./content/learn.ejs");
+});
+
+app.get('/news', async (req, res) => {
+    res.render("./content/news.ejs");
+});
+
 app.use("/user",userRouter);
 app.all('*',(req,res,next)=>{
     res.send("page not found");
