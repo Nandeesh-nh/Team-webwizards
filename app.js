@@ -6,7 +6,8 @@ const axios = require('axios');
 const mongoose = require("mongoose");
 const path = require("path");
 const MongoStore = require("connect-mongo");
-const maprouter = require("./routes/map.js")
+const maprouter = require("./routes/map.js");
+const ejsMate = require("ejs-mate");
 
 const port = 3000;
 async function main() {
@@ -22,12 +23,13 @@ main()
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("./listings/info.ejs");
 });
 
 
