@@ -3,6 +3,7 @@
     border-radius: 50%;
     padding: 20px;
     margin-bottom: 20px;
+    background-color: white;
     display: inline-block;
 }
 .card-body h5 {
@@ -19,7 +20,21 @@
     text-align: center;
     color: #ffffff;
 }
+.under {
+    text-decoration: none;
+    color: white;
+}
+.under:hover {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
 
 .info-color {
     background-color: #033145;
+    margin-top: 2rem;
+    margin-bottom : 2rem;
+}
+
+.sos {
+    border-left : 1px solid black;
 }
