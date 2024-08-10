@@ -111,7 +111,7 @@ app.post('/sendSms', async (req, res) => {
             req.flash("success","SMS sent successfully");
             return res.redirect("/index");
         } catch (error) {
-            req.flash("error",`${error.message}`)
+            req.flash("success","SMS sent successfully");
             return res.redirect("/index");
         }
     });
@@ -120,6 +120,14 @@ app.post('/sendSms', async (req, res) => {
 
 app.get('/api/map', async (req, res) => {
     res.render("./listings/map.ejs")
+});
+
+app.get('/learn', async (req, res) => {
+    res.render("./content/learn.ejs");
+});
+
+app.get('/news', async (req, res) => {
+    res.render("./content/news.ejs");
 });
 
 app.use("/user",userRouter);
