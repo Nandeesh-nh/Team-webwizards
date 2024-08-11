@@ -13,7 +13,7 @@ const flash =require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-
+const twilio = require('twilio');
 const wrapAsync=require('./utils/wrapAsync.js');
 const ExpressError=require('./utils/ExpressError.js')
 
@@ -80,6 +80,14 @@ app.use((req,res,next)=>{
     next();
 })
 
+const accountSid = process.env.SID; 
+const authToken = process.env.TOKEN;  
+
+// Create a Twilio client
+const client = new twilio(accountSid, authToken);
+
+
+
 app.get("/",(req,res)=>{
     res.send("you are in the root page");
 })
@@ -88,33 +96,58 @@ app.get("/index",(req,res)=>{
     res.render("./listings/info.ejs");
 })
 
-app.post('/sendSms', async (req, res) => {
-        const apiKey = process.env.SMS_API_KEY; // Replace with your Fast2SMS API key
-        const senderId = "7353589001";  // Replace with your sender ID
-        const phoneNumber = req.body.phone;
-        const message = "Thank you for reaching out for assistance. Your request has been successfully forwarded to the Natural Disaster Management team. They will review your inquiry and get in touch with you shortly";
-    
-        try {
-            const response = await axios.post('https://www.fast2sms.com/dev/bulk', null, {
-                headers: {
-                    'Authorization': apiKey,
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                params: {
-                    'sender_id': senderId,
-                    'message': message,
-                    'language': 'english',
-                    'route': 'p',
-                    'numbers': phoneNumber,
-                }
-            });
-            req.flash("success","SMS sent successfully");
-            return res.redirect("/index");
-        } catch (error) {
-            req.flash("success","SMS sent successfully");
-            return res.redirect("/index");
-        }
-    });
+    app.post('/sendSms', (req, res) => {
+        console.log("in sending sms post")
+        let { phone } = req.body;
+        const message = "Your message has been sent to the natural disaster authority. They will contact you shortly.";
+        // Sending SMS
+        if (!phone.startsWith('+91')) {
+            phone = `+91${phone}`;
+         }
+        client.messages
+          .create({
+            body: message,      
+            from: process.env.NUMBER,
+            to: phone,
+            
+          })
+          
+          .then((message) => {
+            req.flash('success', 'SMS sent successfully!');
+            res.redirect('/index');
+          })
+          .catch((error) => {
+            req.flash('error', 'Failed to send SMS: ' + error.message);
+            res.redirect('/index');
+          });
+      });
+ 
+      app.post('/sendSms2', (req, res) => {
+        console.log("in sending sms post")
+        let { phone } = req.body;
+        const message = "I wanted to let you know that your report on natural disasters has been sent to the required authority. They will review and verify the information, and it will be added to the list accordingly.";
+        // Sending SMS
+        if (!phone.startsWith('+91')) {
+            phone = `+91${phone}`;
+         }
+        client.messages
+          .create({
+            body: message,      
+            from: process.env.NUMBER,
+            to: phone,
+            
+          })
+          
+          .then((message) => {
+            req.flash('success', 'SMS sent successfully!');
+            res.redirect('/index');
+          })
+          .catch((error) => {
+            req.flash('error', 'Failed to send SMS: ' + error.message);
+            res.redirect('/index');
+          });
+      });
+ 
 
 
 
