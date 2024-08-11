@@ -17,7 +17,8 @@ const twilio = require('twilio');
 const wrapAsync=require('./utils/wrapAsync.js');
 const ExpressError=require('./utils/ExpressError.js')
 
-const port = 3000;
+const port = process.env.PORT || 3000;
+
 async function main() {
   await mongoose.connect(process.env.DB_URL);
 }
