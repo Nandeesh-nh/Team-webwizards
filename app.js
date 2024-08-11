@@ -100,7 +100,7 @@ const client = new twilio(accountSid, authToken);
 
 
 app.get("/",(req,res)=>{
-    res.send("you are in the root page");
+    res.redirect("/index");
 })
 
 app.get("/index",(req,res)=>{
