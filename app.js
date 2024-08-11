@@ -72,6 +72,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+const isLoggedIn= (req,res,next)=>{
+    if(!req.isAuthenticated())
+    {
+    
+        req.flash("error" , "you should be logged in!");
+        return res.redirect("/user/login");
+  }
+  next();
+}
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
@@ -79,6 +88,8 @@ app.use((req,res,next)=>{
     res.locals.currUser = req.user;
     next();
 })
+
+
 
 const accountSid = process.env.SID; 
 const authToken = process.env.TOKEN;  
@@ -122,7 +133,7 @@ app.get("/index",(req,res)=>{
           });
       });
  
-      app.post('/sendSms2', (req, res) => {
+      app.post('/sendSms2',isLoggedIn,(req, res) => {
         console.log("in sending sms post")
         let { phone } = req.body;
         const message = "I wanted to let you know that your report on natural disasters has been sent to the required authority. They will review and verify the information, and it will be added to the list accordingly.";
